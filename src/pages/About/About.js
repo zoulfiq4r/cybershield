@@ -11,29 +11,29 @@ const About = () => {
         </div>
         
         <div className="about-content">
-          <div className="about-section">
-            <h2>Our Mission</h2>
+         <div className="about-section">
+           <h2>Our Mission</h2>
             <p>
               CyberShield is designed to educate students, professionals, and everyday internet users 
-              about the growing threats in the digital world. Through interactive simulations and 
+             about the growing threats in the digital world. Through interactive simulations and 
               comprehensive learning materials, we aim to build a more secure digital environment.
             </p>
           </div>
 
-          <div className="about-section">
+         <div className="about-section">
             <h2>What We Offer</h2>
-            <div className="features-list">
-              <div className="feature-item">
+           <div className="features-list">
+             <div className="feature-item">
                 <h3>📚 Educational Content</h3>
-                <p>Detailed explanations of common cyber attacks and prevention methods</p>
+               <p>Detailed explanations of common cyber attacks and prevention methods</p>
               </div>
               <div className="feature-item">
-                <h3>🎮 Interactive Simulations</h3>
-                <p>Safe, hands-on experience with simulated cyber attacks</p>
+               <h3>🎮 Interactive Simulations</h3>
+               <p>Safe, hands-on experience with simulated cyber attacks</p>
               </div>
-              <div className="feature-item">
-                <h3>🛡️ Best Practices</h3>
-                <p>Practical tips to protect yourself and your organization</p>
+             <div className="feature-item">
+               <h3>🛡️ Best Practices</h3>
+               <p>Practical tips to protect yourself and your organization</p>
               </div>
             </div>
           </div>

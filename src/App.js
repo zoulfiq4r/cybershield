@@ -9,17 +9,18 @@ import Simulator from './pages/Simulator/Simulator';
 import Contact from './pages/Contact/Contact';
 import './App.css';
 
+
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
         <main>
-          <Routes>
+         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+           <Route path="/about" element={<About />} />
             <Route path="/attacks" element={<AttackLibrary />} />
-            <Route path="/simulator" element={<Simulator />} />
+           <Route path="/simulator" element={<Simulator />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

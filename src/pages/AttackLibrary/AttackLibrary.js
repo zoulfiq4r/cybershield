@@ -61,6 +61,7 @@ const AttackLibrary = () => {
     }
   ];
 
+
   return (
     <div className="attack-library">
       <div className="container">
@@ -70,14 +71,14 @@ const AttackLibrary = () => {
         </div>
 
         <div className="attack-grid">
-          {attacks.map(attack => (
-            <div 
-              key={attack.id} 
+         {attacks.map(attack => (
+           <div 
+             key={attack.id} 
               className={`attack-card ${selectedAttack?.id === attack.id ? 'selected' : ''}`}
-              onClick={() => setSelectedAttack(attack)}
+             onClick={() => setSelectedAttack(attack)}
             >
-              <div className="attack-icon">{attack.icon}</div>
-              <h3>{attack.name}</h3>
+             <div className="attack-icon">{attack.icon}</div>
+             <h3>{attack.name}</h3>
               <p>{attack.description}</p>
             </div>
           ))}
@@ -85,18 +86,18 @@ const AttackLibrary = () => {
 
         {selectedAttack && (
           <div className="attack-details">
-            <h2>{selectedAttack.icon} {selectedAttack.name}</h2>
+           <h2>{selectedAttack.icon} {selectedAttack.name}</h2>
             <div className="detail-sections">
-              <div className="detail-section">
-                <h4>How It Works</h4>
+             <div className="detail-section">
+               <h4>How It Works</h4>
                 <p>{selectedAttack.howItWorks}</p>
               </div>
-              <div className="detail-section">
-                <h4>Prevention</h4>
-                <p>{selectedAttack.prevention}</p>
+             <div className="detail-section">
+               <h4>Prevention</h4>
+               <p>{selectedAttack.prevention}</p>
               </div>
               <div className="detail-section">
-                <h4>Example</h4>
+               <h4>Example</h4>
                 <p>{selectedAttack.example}</p>
               </div>
             </div>

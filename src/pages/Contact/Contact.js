@@ -47,23 +47,23 @@ const Contact = () => {
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
-            <h2>Send us a Message</h2>
+           <h2>Send us a Message</h2>
             
             <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
+             <label htmlFor="name">Full Name</label>
+             <input
                 type="text"
-                id="name"
+               id="name"
                 name="name"
                 value={formData.name}
-                onChange={handleChange}
+               onChange={handleChange}
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
+           <div className="form-group">
+             <label htmlFor="email">Email Address</label>
+             <input
                 type="email"
                 id="email"
                 name="email"
@@ -92,19 +92,19 @@ const Contact = () => {
         <div className="resources-section">
           <h2>Additional Cybersecurity Resources</h2>
           <div className="resources-grid">
-            <div className="resource-card">
+           <div className="resource-card">
               <h3>OWASP Foundation</h3>
-              <p>Open Web Application Security Project</p>
+             <p>Open Web Application Security Project</p>
               <a href="https://owasp.org" target="_blank" rel="noopener noreferrer">Visit Website</a>
             </div>
             <div className="resource-card">
-              <h3>CISA Cybersecurity</h3>
-              <p>Cybersecurity & Infrastructure Security Agency</p>
+             <h3>CISA Cybersecurity</h3>
+             <p>Cybersecurity & Infrastructure Security Agency</p>
               <a href="https://www.cisa.gov" target="_blank" rel="noopener noreferrer">Visit Website</a>
             </div>
-            <div className="resource-card">
+           <div className="resource-card">
               <h3>Khan Academy</h3>
-              <p>Cybersecurity Courses</p>
+             <p>Cybersecurity Courses</p>
               <a href="https://www.khanacademy.org" target="_blank" rel="noopener noreferrer">Visit Website</a>
             </div>
           </div>

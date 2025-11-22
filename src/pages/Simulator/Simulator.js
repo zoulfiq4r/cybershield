@@ -13,13 +13,13 @@ const Simulator = () => {
     let strength = 'Weak';
     let score = 0;
     
-    if (pwd.length >= 8) score++;
+   if (pwd.length >= 8) score++;
     if (/[A-Z]/.test(pwd)) score++;
-    if (/[0-9]/.test(pwd)) score++;
+   if (/[0-9]/.test(pwd)) score++;
     if (/[^A-Za-z0-9]/.test(pwd)) score++;
     
     if (score === 4) strength = 'Very Strong';
-    else if (score === 3) strength = 'Strong';
+   else if (score === 3) strength = 'Strong';
     else if (score === 2) strength = 'Medium';
     
     setPasswordStrength(strength);
@@ -146,14 +146,14 @@ const Simulator = () => {
         </div>
 
         <div className="simulator-grid">
-          {simulators.map(sim => (
-            <div 
-              key={sim.id}
+         {simulators.map(sim => (
+           <div 
+             key={sim.id}
               className={`simulator-card ${activeSimulator === sim.id ? 'active' : ''}`}
-              onClick={() => setActiveSimulator(sim.id)}
+             onClick={() => setActiveSimulator(sim.id)}
             >
-              <div className="simulator-icon">{sim.icon}</div>
-              <h3>{sim.title}</h3>
+             <div className="simulator-icon">{sim.icon}</div>
+             <h3>{sim.title}</h3>
             </div>
           ))}
         </div>
