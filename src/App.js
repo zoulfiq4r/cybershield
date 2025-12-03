@@ -7,6 +7,7 @@ import About from './pages/About/About';
 import AttackLibrary from './pages/AttackLibrary/AttackLibrary';
 import Simulator from './pages/Simulator/Simulator';
 import Contact from './pages/Contact/Contact';
+import Login from './pages/Login/Login';
 import './App.css';
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/attacks" element={<AttackLibrary />} />
            <Route path="/simulator" element={<Simulator />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
         <Footer />

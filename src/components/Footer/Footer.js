@@ -1,7 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
+  const location = useLocation();
+  
+  // Don't show footer on login page
+  if (location.pathname === '/login') {
+    return null;
+  }
+
   return (
     <footer className="footer">
      <div className="container">
