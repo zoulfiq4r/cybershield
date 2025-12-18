@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
+// Change this to your Railway backend URL
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Login = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
@@ -21,32 +24,41 @@ const Login = () => {
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     
     if (isLogin) {
       // Login logic
-      if (formData.email && formData.password) {
-        // Check if user exists from previous signup
-        const existingUser = localStorage.getItem('registeredUser');
-        let userData;
-        
-        if (existingUser) {
-          const parsed = JSON.parse(existingUser);
-          if (parsed.email === formData.email) {
-            userData = parsed;
-          } else {
-            userData = { email: formData.email, name: formData.email.split('@')[0] };
-          }
-        } else {
-          userData = { email: formData.email, name: formData.email.split('@')[0] };
+      if (!formData.email || !formData.password) {
+        setError('Please fill in all fields');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data.message || 'Login failed');
+          return;
         }
-        
-        localStorage.setItem('user', JSON.stringify(userData));
+
+        // Save token and user data
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('isAuthenticated', 'true');
         navigate('/');
-      } else {
-        setError('Please fill in all fields');
+      } catch (error) {
+        setError('Unable to connect to server. Please try again.');
       }
     } else {
       // Signup logic
@@ -62,13 +74,33 @@ const Login = () => {
         setError('Password must be at least 6 characters');
         return;
       }
-      
-      // Simulate successful signup
-      const userData = { email: formData.email, name: formData.name };
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('registeredUser', JSON.stringify(userData));
-      localStorage.setItem('isAuthenticated', 'true');
-      navigate('/');
+
+      try {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data.message || 'Registration failed');
+          return;
+        }
+
+        // Save token and user data
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('isAuthenticated', 'true');
+        navigate('/');
+      } catch (error) {
+        setError('Unable to connect to server. Please try again.');
+      }
     }
   };
 

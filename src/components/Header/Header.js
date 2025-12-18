@@ -31,6 +31,11 @@ const Header = () => {
          <Link to="/attacks" className={location.pathname === '/attacks' ? 'active' : ''}>Attack Library</Link>
          <Link to="/simulator" className={location.pathname === '/simulator' ? 'active' : ''}>Simulator</Link>
           <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
+          {isAuthenticated && user.role === 1 && (
+            <Link to="/admin/messages" className={location.pathname === '/admin/messages' ? 'active' : ''}>
+              Admin
+            </Link>
+          )}
           {isAuthenticated ? (
             <div className="auth-section">
               <span className="user-name">👤 {user.name || user.email}</span>

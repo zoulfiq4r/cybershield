@@ -8,6 +8,7 @@ import AttackLibrary from './pages/AttackLibrary/AttackLibrary';
 import Simulator from './pages/Simulator/Simulator';
 import Contact from './pages/Contact/Contact';
 import Login from './pages/Login/Login';
+import AdminMessages from './pages/AdminMessages/AdminMessages';
 import './App.css';
 
 
@@ -24,6 +25,7 @@ function App() {
            <Route path="/simulator" element={<Simulator />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
           </Routes>
         </main>
         <Footer />

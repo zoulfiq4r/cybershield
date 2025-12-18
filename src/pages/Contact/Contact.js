@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
 import './Contact.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [status, setStatus] = useState({ loading: false, success: '', error: '' });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    setStatus({ loading: false, success: '', error: '' });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for your message! This is a demo form.');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus({ loading: true, success: '', error: '' });
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message');
+      }
+
+      setStatus({ loading: false, success: 'Message sent! An admin will review it shortly.', error: '' });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      setStatus({ loading: false, success: '', error: err.message || 'Something went wrong' });
+    }
   };
 
   return (
@@ -85,7 +110,12 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary">Send Message</button>
+            {status.error && <div className="form-error">{status.error}</div>}
+            {status.success && <div className="form-success">{status.success}</div>}
+
+            <button type="submit" className="btn btn-primary" disabled={status.loading}>
+              {status.loading ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
 
