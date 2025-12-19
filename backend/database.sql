@@ -1,9 +1,7 @@
--- Create database
 CREATE DATABASE IF NOT EXISTS cybershield;
 
 USE cybershield;
 
--- Create users table
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -13,7 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Messages from users to admins
 CREATE TABLE IF NOT EXISTS messages (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NULL,
@@ -24,7 +21,3 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
-
--- Optional: Add some test data
--- INSERT INTO users (name, email, password) VALUES 
--- ('Test User', 'test@example.com', '$2a$10$hashedpassword');
