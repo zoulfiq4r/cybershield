@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../config/db');
 const { optionalAuth, requireAuth, requireAdmin } = require('../middleware/auth');
+const { sendAdminNotification } = require('../utils/mailer');
 
 const router = express.Router();
 
@@ -19,6 +20,8 @@ router.post('/', optionalAuth, async (req, res) => {
       'INSERT INTO messages (user_id, name, email, message) VALUES (?, ?, ?, ?)',
       [userId, name, email, message]
     );
+
+    await sendAdminNotification({ name, email, message });
 
     res.status(201).json({ message: 'Message received' });
   } catch (error) {
