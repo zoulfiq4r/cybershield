@@ -7,15 +7,12 @@ const messageRoutes = require('./routes/messages');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
 
-// Health check
 app.get('/', (req, res) => {
   res.json({ message: 'CyberShield API is running' });
 });

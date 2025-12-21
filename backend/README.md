@@ -27,14 +27,6 @@ npm install
   - DB_PASSWORD= (empty for XAMPP default)
   - DB_NAME=cybershield
   - JWT_SECRET=your_super_secret_key_change_this_in_production
-- Optional email notifications (for admin on new messages):
-  - ADMIN_EMAIL=admin@example.com
-  - MAIL_HOST=smtp.yourprovider.com
-  - MAIL_PORT=587
-  - MAIL_USER=smtp_username
-  - MAIL_PASS=smtp_password
-  - MAIL_FROM="CyberShield <no-reply@yourdomain.com>"
-  - MAIL_SECURE=false # set true when using port 465
 
 ### 4. Run the Server
 ```bash

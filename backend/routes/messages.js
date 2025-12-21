@@ -1,11 +1,9 @@
 const express = require('express');
 const db = require('../config/db');
 const { optionalAuth, requireAuth, requireAdmin } = require('../middleware/auth');
-const { sendAdminNotification } = require('../utils/mailer');
 
 const router = express.Router();
 
-// Public (with optional auth) - users submit a contact message
 router.post('/', optionalAuth, async (req, res) => {
   try {
     const { name, email, message } = req.body;
@@ -21,8 +19,6 @@ router.post('/', optionalAuth, async (req, res) => {
       [userId, name, email, message]
     );
 
-    await sendAdminNotification({ name, email, message });
-
     res.status(201).json({ message: 'Message received' });
   } catch (error) {
     console.error('Create message error:', error);
@@ -30,7 +26,6 @@ router.post('/', optionalAuth, async (req, res) => {
   }
 });
 
-// Admin - list all messages
 router.get('/', requireAuth, requireAdmin, async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -43,7 +38,6 @@ router.get('/', requireAuth, requireAdmin, async (req, res) => {
   }
 });
 
-// Admin - mark message as reviewed
 router.patch('/:id/review', requireAuth, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;

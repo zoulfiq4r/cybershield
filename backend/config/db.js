@@ -13,7 +13,6 @@ const pool = mysql.createPool({
 
 const promisePool = pool.promise();
 
-// Test connection
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('Error connecting to MySQL database:', err.message);

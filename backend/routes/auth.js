@@ -5,17 +5,14 @@ const db = require('../config/db');
 
 const router = express.Router();
 
-// Register
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Validate input
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'Please provide all fields' });
     }
 
-    // Check if user exists
     const [existingUsers] = await db.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
@@ -25,17 +22,14 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Insert user
     const [result] = await db.query(
       'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
-      [name, email, hashedPassword, 0] // default role: user
+      [name, email, hashedPassword, 0]
     );
 
-    // Create token
     const token = jwt.sign(
       { id: result.insertId, email, role: 0 },
       process.env.JWT_SECRET,
@@ -53,17 +47,14 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({ message: 'Please provide all fields' });
     }
 
-    // Check if user exists
     const [users] = await db.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
@@ -75,14 +66,12 @@ router.post('/login', async (req, res) => {
 
     const user = users[0];
 
-    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Create token
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
